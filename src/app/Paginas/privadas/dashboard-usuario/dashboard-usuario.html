@@ -1,0 +1,77 @@
+<!-- =======================================================
+     DASHBOARD DEL USUARIO
+     ======================================================= -->
+
+<div class="dashboard-container">
+
+  <!-- CABECERA -->
+  <header class="dashboard-header">
+
+    <div>
+      <h1>Panel de Usuario</h1>
+      <p>Gestiona tus mascotas y tus citas veterinarias.</p>
+    </div>
+
+    <button
+      class="btn-cerrar"
+      (click)="cerrarSesion()"
+    >
+      Cerrar sesión
+    </button>
+
+  </header>
+
+
+  <!-- OPCIONES PRINCIPALES -->
+  <section class="dashboard-grid">
+
+    <div
+      class="card"
+      (click)="irMascotas()"
+    >
+      <div class="icono">🐶</div>
+      <h2>Mis Mascotas</h2>
+      <p>
+        Registra, consulta y edita tus mascotas.
+      </p>
+    </div>
+
+
+    <div
+      class="card"
+      (click)="irCitas()"
+    >
+      <div class="icono">📅</div>
+      <h2>Mis Citas</h2>
+      <p>
+        Agenda y consulta tus citas veterinarias.
+      </p>
+    </div>
+
+
+    <div
+      class="card"
+      (click)="irServicios()"
+    >
+      <div class="icono">🩺</div>
+      <h2>Servicios</h2>
+      <p>
+        Consulta los servicios disponibles.
+      </p>
+    </div>
+
+
+    <div
+      class="card"
+      (click)="irVeterinarios()"
+    >
+      <div class="icono">👨‍⚕️</div>
+      <h2>Veterinarios</h2>
+      <p>
+        Consulta los veterinarios disponibles.
+      </p>
+    </div>
+
+  </section>
+
+</div>

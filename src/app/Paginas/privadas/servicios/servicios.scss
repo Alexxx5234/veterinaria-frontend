@@ -1,0 +1,296 @@
+/* =========================================================
+   CONTENEDOR PRINCIPAL
+   ========================================================= */
+
+.servicios-container {
+  min-height: 100vh;
+  padding: 40px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #f5f7ff,
+      #eef1ff
+    );
+}
+
+
+/* =========================================================
+   CABECERA
+   ========================================================= */
+
+.servicios-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  gap: 20px;
+
+  padding: 25px 30px;
+  margin-bottom: 30px;
+
+  background-color: white;
+
+  border-radius: 18px;
+
+  box-shadow:
+    0 10px 30px rgba(0, 0, 0, 0.08);
+}
+
+
+.servicios-header h1 {
+  margin: 0;
+
+  color: #292742;
+
+  font-size: 28px;
+}
+
+
+.servicios-header p {
+  margin-top: 6px;
+  margin-bottom: 0;
+
+  color: #77758a;
+}
+
+
+/* =========================================================
+   BOTÓN VOLVER
+   ========================================================= */
+
+.btn-volver {
+  padding: 11px 18px;
+
+  border: none;
+  border-radius: 9px;
+
+  color: #555269;
+
+  background-color: #eeeeF7;
+
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition: 0.2s ease;
+}
+
+
+.btn-volver:hover {
+  background-color: #e2e2ef;
+
+  transform: translateY(-1px);
+}
+
+
+/* =========================================================
+   MENSAJES
+   ========================================================= */
+
+.mensaje-info,
+.mensaje-error,
+.sin-servicios {
+  padding: 20px;
+
+  margin-bottom: 25px;
+
+  text-align: center;
+
+  border-radius: 14px;
+}
+
+
+/* Mensaje mientras carga */
+
+.mensaje-info {
+  color: #6254e8;
+
+  background-color: white;
+
+  box-shadow:
+    0 8px 25px rgba(0, 0, 0, 0.07);
+}
+
+
+/* Mensaje cuando ocurre un error */
+
+.mensaje-error {
+  color: #b42318;
+
+  background-color: #fff1f0;
+
+  border: 1px solid #ffd3cf;
+}
+
+
+/* =========================================================
+   SIN SERVICIOS
+   ========================================================= */
+
+.sin-servicios {
+  background-color: white;
+
+  box-shadow:
+    0 10px 30px rgba(0, 0, 0, 0.07);
+}
+
+
+.sin-icono {
+  font-size: 55px;
+
+  margin-bottom: 10px;
+}
+
+
+.sin-servicios h2 {
+  color: #302d4f;
+}
+
+
+.sin-servicios p {
+  color: #77758a;
+}
+
+
+/* =========================================================
+   LISTADO DE SERVICIOS
+   ========================================================= */
+
+.servicios-grid {
+  display: grid;
+
+  grid-template-columns:
+    repeat(
+      auto-fit,
+      minmax(260px, 1fr)
+    );
+
+  gap: 24px;
+}
+
+
+/* =========================================================
+   TARJETA DE SERVICIO
+   ========================================================= */
+
+.servicio-card {
+  padding: 28px;
+
+  background-color: white;
+
+  border-radius: 18px;
+
+  box-shadow:
+    0 10px 30px rgba(0, 0, 0, 0.08);
+
+  transition: 0.2s ease;
+}
+
+
+.servicio-card:hover {
+  transform: translateY(-5px);
+
+  box-shadow:
+    0 15px 35px rgba(0, 0, 0, 0.12);
+}
+
+
+/* Icono */
+
+.servicio-icono {
+  width: 55px;
+  height: 55px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  margin-bottom: 18px;
+
+  border-radius: 14px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #ede9fe,
+      #ddd6fe
+    );
+
+  font-size: 28px;
+}
+
+
+/* Nombre del servicio */
+
+.servicio-card h2 {
+  margin-top: 0;
+  margin-bottom: 12px;
+
+  color: #302d4f;
+
+  font-size: 21px;
+}
+
+
+/* Descripción */
+
+.descripcion {
+  min-height: 50px;
+
+  margin-bottom: 22px;
+
+  color: #77758a;
+
+  line-height: 1.5;
+}
+
+
+/* =========================================================
+   PRECIO
+   ========================================================= */
+
+.precio {
+  display: inline-block;
+
+  padding: 8px 14px;
+
+  border-radius: 20px;
+
+  color: #5646d7;
+
+  background-color: #f0edff;
+
+  font-size: 18px;
+  font-weight: 700;
+}
+
+
+/* =========================================================
+   RESPONSIVO
+   ========================================================= */
+
+@media (max-width: 700px) {
+
+  .servicios-container {
+    padding: 20px;
+  }
+
+
+  .servicios-header {
+    flex-direction: column;
+
+    align-items: flex-start;
+  }
+
+
+  .btn-volver {
+    width: 100%;
+  }
+
+
+  .servicios-grid {
+    grid-template-columns: 1fr;
+  }
+
+}

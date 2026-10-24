@@ -1,0 +1,338 @@
+/* =========================================================
+   CONTENEDOR PRINCIPAL
+   ========================================================= */
+
+.login-page {
+  min-height: 100vh;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  padding: 20px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #eef2ff 0%,
+      #f8f9ff 50%,
+      #ede9fe 100%
+    );
+}
+
+
+/* =========================================================
+   TARJETA
+   ========================================================= */
+
+.login-card {
+  width: 100%;
+  max-width: 430px;
+
+  background-color: white;
+
+  padding: 38px;
+
+  border-radius: 20px;
+
+  box-shadow:
+    0 15px 40px rgba(0, 0, 0, 0.10);
+
+  border: 1px solid #eeeeee;
+}
+
+
+/* =========================================================
+   LOGO
+   ========================================================= */
+
+.logo-area {
+  text-align: center;
+
+  margin-bottom: 30px;
+}
+
+
+.logo-icon {
+  width: 70px;
+  height: 70px;
+
+  margin: 0 auto 15px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  font-size: 35px;
+
+  border-radius: 50%;
+
+  background:
+    linear-gradient(
+      135deg,
+      #6d5dfc,
+      #8b5cf6
+    );
+
+  box-shadow:
+    0 8px 20px rgba(109, 93, 252, 0.25);
+}
+
+
+.logo-area h1 {
+  margin: 0;
+
+  color: #25233a;
+
+  font-size: 30px;
+  font-weight: 700;
+}
+
+
+.logo-area p {
+  margin-top: 8px;
+
+  color: #77758a;
+
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+
+/* =========================================================
+   FORMULARIO
+   ========================================================= */
+
+.login-form {
+  width: 100%;
+}
+
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+
+.form-group label {
+  display: block;
+
+  margin-bottom: 7px;
+
+  color: #343247;
+
+  font-size: 14px;
+  font-weight: 600;
+}
+
+
+.form-group input {
+  width: 100%;
+
+  padding: 13px 14px;
+
+  border: 1px solid #d8d8e5;
+  border-radius: 10px;
+
+  outline: none;
+
+  font-size: 14px;
+
+  background-color: #fafafe;
+
+  box-sizing: border-box;
+
+  transition: 0.2s ease;
+}
+
+
+.form-group input:focus {
+  border-color: #6d5dfc;
+
+  background-color: white;
+
+  box-shadow:
+    0 0 0 3px rgba(109, 93, 252, 0.10);
+}
+
+
+.form-group input::placeholder {
+  color: #aaa9b5;
+}
+
+
+/* =========================================================
+   CONTRASEÑA
+   ========================================================= */
+
+.password-container {
+  position: relative;
+}
+
+
+.password-container input {
+  padding-right: 52px;
+}
+
+
+.btn-ver-password {
+  position: absolute;
+
+  top: 50%;
+  right: 13px;
+
+  transform: translateY(-50%);
+
+  padding: 5px;
+
+  border: none;
+
+  background: transparent;
+
+  font-size: 19px;
+
+  cursor: pointer;
+
+  line-height: 1;
+}
+
+
+.btn-ver-password:hover {
+  transform:
+    translateY(-50%)
+    scale(1.08);
+}
+
+
+/* =========================================================
+   ERRORES
+   ========================================================= */
+
+.error {
+  display: block;
+
+  margin-top: 6px;
+
+  color: #dc3545;
+
+  font-size: 12px;
+}
+
+
+.mensaje-error {
+  margin-bottom: 18px;
+
+  padding: 11px 13px;
+
+  color: #b42318;
+
+  background-color: #fff1f0;
+
+  border: 1px solid #ffd3cf;
+
+  border-radius: 9px;
+
+  font-size: 13px;
+
+  text-align: center;
+}
+
+
+/* =========================================================
+   LOGIN
+   ========================================================= */
+
+.btn-login {
+  width: 100%;
+
+  padding: 13px;
+
+  border: none;
+  border-radius: 10px;
+
+  color: white;
+
+  background:
+    linear-gradient(
+      135deg,
+      #6254e8,
+      #7c5ce7
+    );
+
+  font-size: 15px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition: 0.2s ease;
+}
+
+
+.btn-login:hover:not(:disabled) {
+  transform: translateY(-1px);
+
+  box-shadow:
+    0 8px 18px rgba(98, 84, 232, 0.25);
+}
+
+
+.btn-login:disabled {
+  opacity: 0.65;
+
+  cursor: not-allowed;
+}
+
+
+/* =========================================================
+   REGISTRO
+   ========================================================= */
+
+.registro {
+  margin-top: 24px;
+
+  text-align: center;
+
+  color: #737184;
+
+  font-size: 14px;
+}
+
+
+.registro a {
+  margin-left: 5px;
+
+  color: #6254e8;
+
+  font-weight: 600;
+
+  text-decoration: none;
+}
+
+
+.registro a:hover {
+  text-decoration: underline;
+}
+
+
+/* =========================================================
+   RESPONSIVO
+   ========================================================= */
+
+@media (max-width: 500px) {
+
+  .login-page {
+    padding: 15px;
+  }
+
+
+  .login-card {
+    padding: 28px 22px;
+
+    border-radius: 16px;
+  }
+
+
+  .logo-area h1 {
+    font-size: 26px;
+  }
+
+}

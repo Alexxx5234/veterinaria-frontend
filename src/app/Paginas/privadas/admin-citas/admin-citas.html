@@ -1,0 +1,612 @@
+<!-- =======================================================
+     ADMINISTRACIÓN DE CITAS
+     ======================================================= -->
+
+<div class="citas-container">
+
+
+  <!-- =====================================================
+       CABECERA
+       ===================================================== -->
+
+  <header class="citas-header">
+
+    <div>
+
+      <h1>📅 Administración de Citas</h1>
+
+      <p>
+        Consulta, registra, edita, cancela
+        y elimina citas del sistema.
+      </p>
+
+    </div>
+
+
+    <div class="acciones-header">
+
+      <button
+        type="button"
+        class="btn-nuevo"
+        (click)="nuevaCita()"
+      >
+        + Nueva cita
+      </button>
+
+
+      <button
+        type="button"
+        class="btn-volver"
+        (click)="volverDashboard()"
+      >
+        ← Volver
+      </button>
+
+    </div>
+
+  </header>
+
+
+  <!-- =====================================================
+       MENSAJE DE ÉXITO
+       ===================================================== -->
+
+  <div
+    class="mensaje-exito"
+    *ngIf="mensajeExito"
+  >
+    {{ mensajeExito }}
+  </div>
+
+
+  <!-- =====================================================
+       MENSAJE DE ERROR
+       ===================================================== -->
+
+  <div
+    class="mensaje-error"
+    *ngIf="mensajeError"
+  >
+    {{ mensajeError }}
+  </div>
+
+
+  <!-- =====================================================
+       FORMULARIO
+       ===================================================== -->
+
+  <section
+    class="formulario-card"
+    *ngIf="mostrarFormulario"
+  >
+
+    <h2 *ngIf="citaEditandoId === null">
+      Registrar nueva cita
+    </h2>
+
+
+    <h2 *ngIf="citaEditandoId !== null">
+      Editar cita
+    </h2>
+
+
+    <form
+      [formGroup]="citaForm"
+      (ngSubmit)="guardarCita()"
+    >
+
+
+      <!-- FECHA Y HORA -->
+      <div class="form-group">
+
+        <label for="fechaHora">
+          Fecha y hora
+        </label>
+
+        <input
+          id="fechaHora"
+          type="datetime-local"
+          formControlName="fechaHora"
+        >
+
+        <small
+          class="error-validacion"
+          *ngIf="
+            citaForm.get('fechaHora')?.touched &&
+            citaForm.get('fechaHora')?.hasError('required')
+          "
+        >
+          La fecha y hora son obligatorias.
+        </small>
+
+      </div>
+
+
+      <!-- MOTIVO -->
+      <div class="form-group">
+
+        <label for="motivo">
+          Motivo
+        </label>
+
+        <textarea
+          id="motivo"
+          rows="4"
+          formControlName="motivo"
+          placeholder="Ejemplo: Vacunación anual"
+        ></textarea>
+
+        <small
+          class="error-validacion"
+          *ngIf="
+            citaForm.get('motivo')?.touched &&
+            citaForm.get('motivo')?.hasError('required')
+          "
+        >
+          El motivo es obligatorio.
+        </small>
+
+      </div>
+
+
+      <!-- MASCOTA -->
+      <div class="form-group">
+
+        <label for="mascotaId">
+          Mascota
+        </label>
+
+        <select
+          id="mascotaId"
+          formControlName="mascotaId"
+        >
+
+          <option value="">
+            Selecciona una mascota
+          </option>
+
+
+          <option
+            *ngFor="let mascota of mascotas"
+            [value]="mascota.id"
+          >
+            {{ mascota.nombre }}
+            -
+            {{ mascota.usuario?.nombre }}
+            {{ mascota.usuario?.apellido || '' }}
+          </option>
+
+        </select>
+
+        <small
+          class="error-validacion"
+          *ngIf="
+            citaForm.get('mascotaId')?.touched &&
+            citaForm.get('mascotaId')?.hasError('required')
+          "
+        >
+          Debes seleccionar una mascota.
+        </small>
+
+      </div>
+
+
+      <!-- VETERINARIO -->
+      <div class="form-group">
+
+        <label for="veterinarioId">
+          Veterinario
+        </label>
+
+        <select
+          id="veterinarioId"
+          formControlName="veterinarioId"
+        >
+
+          <option value="">
+            Selecciona un veterinario
+          </option>
+
+
+          <option
+            *ngFor="let veterinario of veterinarios"
+            [value]="veterinario.id"
+          >
+            {{ veterinario.nombre }}
+            {{ veterinario.apellido }}
+            -
+            {{ veterinario.especialidad }}
+          </option>
+
+        </select>
+
+        <small
+          class="error-validacion"
+          *ngIf="
+            citaForm.get('veterinarioId')?.touched &&
+            citaForm.get('veterinarioId')?.hasError('required')
+          "
+        >
+          Debes seleccionar un veterinario.
+        </small>
+
+      </div>
+
+
+      <!-- SERVICIO -->
+      <div class="form-group">
+
+        <label for="servicioId">
+          Servicio
+        </label>
+
+        <select
+          id="servicioId"
+          formControlName="servicioId"
+        >
+
+          <option value="">
+            Selecciona un servicio
+          </option>
+
+
+          <option
+            *ngFor="let servicio of servicios"
+            [value]="servicio.id"
+          >
+            {{ servicio.nombre }}
+            - ${{ servicio.precio }}
+          </option>
+
+        </select>
+
+        <small
+          class="error-validacion"
+          *ngIf="
+            citaForm.get('servicioId')?.touched &&
+            citaForm.get('servicioId')?.hasError('required')
+          "
+        >
+          Debes seleccionar un servicio.
+        </small>
+
+      </div>
+
+
+      <!-- ESTADO -->
+      <div class="form-group">
+
+        <label for="estado">
+          Estado
+        </label>
+
+        <select
+          id="estado"
+          formControlName="estado"
+        >
+
+          <option value="PENDIENTE">
+            PENDIENTE
+          </option>
+
+          <option value="CONFIRMADA">
+            CONFIRMADA
+          </option>
+
+          <option value="COMPLETADA">
+            COMPLETADA
+          </option>
+
+          <option value="CANCELADA">
+            CANCELADA
+          </option>
+
+        </select>
+
+      </div>
+
+
+      <!-- BOTONES DEL FORMULARIO -->
+      <div class="form-acciones">
+
+        <button
+          type="submit"
+          class="btn-guardar"
+        >
+          {{
+            citaEditandoId === null
+              ? 'Registrar cita'
+              : 'Guardar cambios'
+          }}
+        </button>
+
+
+        <button
+          type="button"
+          class="btn-cancelar-form"
+          (click)="cerrarFormulario()"
+        >
+          Cancelar
+        </button>
+
+      </div>
+
+    </form>
+
+  </section>
+
+
+  <!-- =====================================================
+       CARGANDO
+       ===================================================== -->
+
+  <div
+    class="mensaje-info"
+    *ngIf="cargando"
+  >
+    Cargando citas...
+  </div>
+
+
+  <!-- =====================================================
+       SIN CITAS
+       ===================================================== -->
+
+  <div
+    class="sin-citas"
+    *ngIf="
+      !cargando &&
+      !mensajeError &&
+      citas.length === 0
+    "
+  >
+
+    <div class="sin-icono">
+      📅
+    </div>
+
+    <h2>
+      No hay citas registradas
+    </h2>
+
+    <p>
+      Todavía no existen citas registradas
+      en el sistema.
+    </p>
+
+  </div>
+
+
+  <!-- =====================================================
+       LISTADO DE CITAS
+       ===================================================== -->
+
+  <section
+    class="citas-grid"
+    *ngIf="
+      !cargando &&
+      citas.length > 0
+    "
+  >
+
+
+    <article
+      class="cita-card"
+      *ngFor="let cita of citas"
+    >
+
+
+      <!-- CABECERA DE LA CITA -->
+      <div class="cita-superior">
+
+        <div class="cita-icono">
+          📅
+        </div>
+
+
+        <div>
+
+          <h2>
+            Cita #{{ cita.id }}
+          </h2>
+
+
+          <span
+            class="estado"
+            [class.pendiente]="cita.estado === 'PENDIENTE'"
+            [class.confirmada]="cita.estado === 'CONFIRMADA'"
+            [class.completada]="cita.estado === 'COMPLETADA'"
+            [class.cancelada]="cita.estado === 'CANCELADA'"
+          >
+            {{ cita.estado }}
+          </span>
+
+        </div>
+
+      </div>
+
+
+      <!-- INFORMACIÓN GENERAL -->
+      <div class="cita-info">
+
+        <p>
+          <strong>Fecha y hora:</strong>
+
+          {{ cita.fechaHora | date:'dd/MM/yyyy HH:mm' }}
+        </p>
+
+
+        <p>
+          <strong>Motivo:</strong>
+
+          {{ cita.motivo }}
+        </p>
+
+      </div>
+
+
+      <!-- MASCOTA -->
+      <div
+        class="bloque-info"
+        *ngIf="cita.mascota"
+      >
+
+        <h3>
+          🐾 Mascota
+        </h3>
+
+
+        <p>
+          <strong>Nombre:</strong>
+
+          {{ cita.mascota.nombre }}
+        </p>
+
+
+        <p *ngIf="cita.mascota.especie">
+
+          <strong>Especie:</strong>
+
+          {{ cita.mascota.especie }}
+        </p>
+
+
+        <p *ngIf="cita.mascota.raza">
+
+          <strong>Raza:</strong>
+
+          {{ cita.mascota.raza }}
+        </p>
+
+      </div>
+
+
+      <!-- PROPIETARIO -->
+      <div
+        class="bloque-info"
+        *ngIf="cita.mascota?.usuario"
+      >
+
+        <h3>
+          👤 Propietario
+        </h3>
+
+
+        <p *ngIf="cita.mascota.usuario.nombre">
+
+          <strong>Nombre:</strong>
+
+          {{ cita.mascota.usuario.nombre }}
+        </p>
+
+
+        <p *ngIf="cita.mascota.usuario.correo">
+
+          <strong>Correo:</strong>
+
+          {{ cita.mascota.usuario.correo }}
+        </p>
+
+      </div>
+
+
+      <!-- VETERINARIO -->
+      <div
+        class="bloque-info"
+        *ngIf="cita.veterinario"
+      >
+
+        <h3>
+          👨‍⚕️ Veterinario
+        </h3>
+
+
+        <p>
+          <strong>Nombre:</strong>
+
+          {{ cita.veterinario.nombre }}
+          {{ cita.veterinario.apellido }}
+        </p>
+
+
+        <p *ngIf="cita.veterinario.especialidad">
+
+          <strong>Especialidad:</strong>
+
+          {{ cita.veterinario.especialidad }}
+        </p>
+
+      </div>
+
+
+      <!-- SERVICIO -->
+      <div
+        class="bloque-info"
+        *ngIf="cita.servicio"
+      >
+
+        <h3>
+          🩺 Servicio
+        </h3>
+
+
+        <p>
+          <strong>Nombre:</strong>
+
+          {{ cita.servicio.nombre }}
+        </p>
+
+
+        <p *ngIf="cita.servicio.precio !== undefined">
+
+          <strong>Precio:</strong>
+
+          ${{ cita.servicio.precio }}
+        </p>
+
+      </div>
+
+
+      <!-- =================================================
+           ACCIONES
+           ================================================= -->
+
+      <div class="acciones-card">
+
+        <!-- EDITAR -->
+        <button
+          type="button"
+          class="btn-editar"
+          (click)="editarCita(cita)"
+        >
+          ✏️ Editar
+        </button>
+
+
+        <!-- CANCELAR -->
+        <button
+          type="button"
+          class="btn-cancelar"
+          *ngIf="cita.estado !== 'CANCELADA'"
+          (click)="cancelarCita(cita)"
+        >
+          🚫 Cancelar
+        </button>
+
+
+        <!-- ELIMINAR -->
+        <button
+          type="button"
+          class="btn-eliminar"
+          (click)="eliminarCita(cita)"
+        >
+          🗑 Eliminar
+        </button>
+
+      </div>
+
+    </article>
+
+  </section>
+
+</div>

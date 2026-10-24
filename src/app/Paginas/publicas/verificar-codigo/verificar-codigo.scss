@@ -1,0 +1,365 @@
+/* =========================================================
+   CONTENEDOR GENERAL
+   ========================================================= */
+
+.verificar-container {
+  min-height: 100vh;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  padding: 30px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #f5f7ff,
+      #eef1ff
+    );
+}
+
+
+/* =========================================================
+   TARJETA
+   ========================================================= */
+
+.verificar-card {
+  width: 100%;
+  max-width: 430px;
+
+  padding: 35px;
+
+  background-color: white;
+
+  border-radius: 20px;
+
+  box-shadow:
+    0 14px 40px rgba(0, 0, 0, 0.10);
+}
+
+
+/* =========================================================
+   ENCABEZADO
+   ========================================================= */
+
+.verificar-header {
+  text-align: center;
+
+  margin-bottom: 28px;
+}
+
+
+.logo {
+  width: 65px;
+  height: 65px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  margin: 0 auto 15px;
+
+  border-radius: 18px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #6254e8,
+      #7c5ce7
+    );
+
+  font-size: 32px;
+}
+
+
+.verificar-header h1 {
+  margin: 0;
+
+  color: #302d4f;
+
+  font-size: 28px;
+}
+
+
+.verificar-header p {
+  margin-top: 8px;
+
+  color: #77758a;
+
+  line-height: 1.5;
+}
+
+
+/* =========================================================
+   MENSAJES
+   ========================================================= */
+
+.mensaje-error,
+.mensaje-exito {
+  padding: 12px 14px;
+
+  margin-bottom: 18px;
+
+  border-radius: 10px;
+
+  text-align: center;
+
+  font-size: 14px;
+}
+
+
+.mensaje-error {
+  color: #b42318;
+
+  background-color: #fff1f0;
+
+  border: 1px solid #ffd3cf;
+}
+
+
+.mensaje-exito {
+  color: #176b3a;
+
+  background-color: #ecfdf3;
+
+  border: 1px solid #b7ebc9;
+}
+
+
+/* =========================================================
+   FORMULARIO
+   ========================================================= */
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+
+.form-group label {
+  display: block;
+
+  margin-bottom: 8px;
+
+  color: #39364d;
+
+  font-size: 14px;
+  font-weight: 600;
+
+  text-align: center;
+}
+
+
+/* =========================================================
+   INPUT DEL CÓDIGO
+   ========================================================= */
+
+.form-group input {
+  width: 100%;
+
+  padding: 16px 14px;
+
+  border: 1px solid #d8d8e5;
+  border-radius: 12px;
+
+  outline: none;
+
+  background-color: #fafafe;
+
+  box-sizing: border-box;
+
+  text-align: center;
+
+  font-size: 28px;
+  font-weight: 700;
+
+  letter-spacing: 12px;
+
+  color: #302d4f;
+
+  transition: 0.2s ease;
+}
+
+
+.form-group input:focus {
+  border-color: #6254e8;
+
+  background-color: white;
+
+  box-shadow:
+    0 0 0 3px rgba(98, 84, 232, 0.10);
+}
+
+
+.form-group input::placeholder {
+  color: #c6c4d0;
+}
+
+
+/* =========================================================
+   VALIDACIONES
+   ========================================================= */
+
+.error-validacion {
+  display: block;
+
+  margin-top: 7px;
+
+  color: #dc3545;
+
+  font-size: 12px;
+
+  text-align: center;
+}
+
+
+/* =========================================================
+   BOTÓN VERIFICAR
+   ========================================================= */
+
+.btn-verificar {
+  width: 100%;
+
+  padding: 13px 18px;
+
+  border: none;
+  border-radius: 10px;
+
+  color: white;
+
+  background:
+    linear-gradient(
+      135deg,
+      #6254e8,
+      #7c5ce7
+    );
+
+  font-size: 15px;
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition: 0.2s ease;
+}
+
+
+.btn-verificar:hover:not(:disabled) {
+  transform: translateY(-1px);
+
+  box-shadow:
+    0 8px 20px rgba(98, 84, 232, 0.25);
+}
+
+
+.btn-verificar:disabled {
+  opacity: 0.65;
+
+  cursor: not-allowed;
+}
+
+
+/* =========================================================
+   INFORMACIÓN DE VERIFICACIÓN
+   ========================================================= */
+
+.info-verificacion {
+  margin-top: 25px;
+
+  padding: 15px;
+
+  border-radius: 12px;
+
+  background-color: #f7f5ff;
+
+  border: 1px solid #e5e0ff;
+}
+
+
+.info-verificacion p {
+  margin: 7px 0;
+
+  color: #66627a;
+
+  font-size: 13px;
+
+  line-height: 1.5;
+}
+
+
+/* =========================================================
+   BOTONES SECUNDARIOS
+   ========================================================= */
+
+.acciones-secundarias {
+  display: flex;
+  justify-content: space-between;
+
+  gap: 10px;
+
+  margin-top: 20px;
+}
+
+
+.btn-secundario {
+  flex: 1;
+
+  padding: 10px 12px;
+
+  border: 1px solid #d8d8e5;
+  border-radius: 9px;
+
+  color: #5d596e;
+
+  background-color: white;
+
+  font-size: 13px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition: 0.2s ease;
+}
+
+
+.btn-secundario:hover {
+  border-color: #6254e8;
+
+  color: #6254e8;
+
+  background-color: #f8f7ff;
+}
+
+
+/* =========================================================
+   RESPONSIVO
+   ========================================================= */
+
+@media (max-width: 600px) {
+
+  .verificar-container {
+    padding: 18px;
+  }
+
+
+  .verificar-card {
+    padding: 25px 20px;
+  }
+
+
+  .verificar-header h1 {
+    font-size: 24px;
+  }
+
+
+  .form-group input {
+    font-size: 24px;
+
+    letter-spacing: 9px;
+  }
+
+
+  .acciones-secundarias {
+    flex-direction: column;
+  }
+
+}

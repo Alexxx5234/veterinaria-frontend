@@ -1,0 +1,123 @@
+<!-- =======================================================
+     PÁGINA: SERVICIOS
+     ======================================================= -->
+
+<div class="servicios-container">
+
+  <!-- =====================================================
+       CABECERA
+       ===================================================== -->
+
+  <header class="servicios-header">
+
+    <div>
+      <h1>🩺 Servicios</h1>
+
+      <p>
+        Consulta los servicios disponibles
+        en la veterinaria.
+      </p>
+    </div>
+
+    <button
+      type="button"
+      class="btn-volver"
+      (click)="volverDashboard()"
+    >
+      ← Volver
+    </button>
+
+  </header>
+
+
+  <!-- =====================================================
+       CARGANDO
+       ===================================================== -->
+
+  <div
+    class="mensaje-info"
+    *ngIf="cargando"
+  >
+    Cargando servicios...
+  </div>
+
+
+  <!-- =====================================================
+       ERROR
+       ===================================================== -->
+
+  <div
+    class="mensaje-error"
+    *ngIf="mensajeError"
+  >
+    {{ mensajeError }}
+  </div>
+
+
+  <!-- =====================================================
+       SIN SERVICIOS
+       ===================================================== -->
+
+  <div
+    class="sin-servicios"
+    *ngIf="
+      !cargando &&
+      !mensajeError &&
+      servicios.length === 0
+    "
+  >
+
+    <div class="sin-icono">
+      🩺
+    </div>
+
+    <h2>
+      No hay servicios disponibles
+    </h2>
+
+    <p>
+      El administrador todavía no ha registrado
+      servicios en la veterinaria.
+    </p>
+
+  </div>
+
+
+  <!-- =====================================================
+       LISTADO DE SERVICIOS
+       ===================================================== -->
+
+  <section
+    class="servicios-grid"
+    *ngIf="
+      !cargando &&
+      servicios.length > 0
+    "
+  >
+
+    <article
+      class="servicio-card"
+      *ngFor="let servicio of servicios"
+    >
+
+      <div class="servicio-icono">
+        🐾
+      </div>
+
+      <h2>
+        {{ servicio.nombre }}
+      </h2>
+
+      <p class="descripcion">
+        {{ servicio.descripcion }}
+      </p>
+
+      <div class="precio">
+        ${{ servicio.precio }}
+      </div>
+
+    </article>
+
+  </section>
+
+</div>

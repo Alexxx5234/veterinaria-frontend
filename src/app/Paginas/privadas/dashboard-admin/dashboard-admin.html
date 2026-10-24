@@ -1,0 +1,173 @@
+<!-- =======================================================
+     DASHBOARD DEL ADMINISTRADOR
+     ======================================================= -->
+
+<div class="dashboard-container">
+
+  <!-- =====================================================
+       CABECERA
+       ===================================================== -->
+
+  <header class="dashboard-header">
+
+    <div>
+      <h1>Panel de Administración</h1>
+
+      <p>
+        Gestiona usuarios, mascotas, citas,
+        servicios y veterinarios.
+      </p>
+    </div>
+
+
+    <button
+      type="button"
+      class="btn-cerrar"
+      (click)="cerrarSesion()"
+    >
+      Cerrar sesión
+    </button>
+
+  </header>
+
+
+
+  <!-- =====================================================
+       OPCIONES DEL ADMINISTRADOR
+       ===================================================== -->
+
+  <section class="dashboard-grid">
+
+
+    <!-- ===================================================
+         USUARIOS
+         =================================================== -->
+
+    <div
+      class="card"
+      (click)="irUsuarios()"
+    >
+
+      <div class="icono">
+        👥
+      </div>
+
+      <h2>
+        Usuarios
+      </h2>
+
+      <p>
+        Revisa usuarios pendientes, aprueba,
+        rechaza, bloquea y administra cuentas.
+      </p>
+
+    </div>
+
+
+
+    <!-- ===================================================
+         MASCOTAS
+         =================================================== -->
+
+    <div
+      class="card"
+      (click)="irMascotas()"
+    >
+
+      <div class="icono">
+        🐾
+      </div>
+
+      <h2>
+        Mascotas
+      </h2>
+
+      <p>
+        Consulta todas las mascotas registradas
+        en el sistema.
+      </p>
+
+    </div>
+
+
+
+    <!-- ===================================================
+         CITAS
+         =================================================== -->
+
+    <div
+      class="card"
+      (click)="irCitas()"
+    >
+
+      <div class="icono">
+        📅
+      </div>
+
+      <h2>
+        Citas
+      </h2>
+
+      <p>
+        Consulta y administra las citas
+        registradas por los usuarios.
+      </p>
+
+    </div>
+
+
+
+    <!-- ===================================================
+         SERVICIOS
+         =================================================== -->
+
+    <div
+      class="card"
+      (click)="irServicios()"
+    >
+
+      <div class="icono">
+        🩺
+      </div>
+
+      <h2>
+        Servicios
+      </h2>
+
+      <p>
+        Crea, modifica y elimina los servicios
+        ofrecidos por la veterinaria.
+      </p>
+
+    </div>
+
+
+
+    <!-- ===================================================
+         VETERINARIOS
+         =================================================== -->
+
+    <div
+      class="card"
+      (click)="irVeterinarios()"
+    >
+
+      <div class="icono">
+        👨‍⚕️
+      </div>
+
+      <h2>
+        Veterinarios
+      </h2>
+
+      <p>
+        Registra, modifica y administra
+        los veterinarios del sistema.
+      </p>
+
+    </div>
+
+
+  </section>
+
+</div>

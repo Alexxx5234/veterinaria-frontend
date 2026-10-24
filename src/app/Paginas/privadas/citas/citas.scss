@@ -1,0 +1,584 @@
+/* =========================================================
+   CONTENEDOR PRINCIPAL
+   ========================================================= */
+
+.citas-container {
+  min-height: 100vh;
+  padding: 40px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #f5f7ff,
+      #eef1ff
+    );
+}
+
+
+/* =========================================================
+   CABECERA
+   ========================================================= */
+
+.citas-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  gap: 20px;
+
+  padding: 25px 30px;
+  margin-bottom: 30px;
+
+  background-color: white;
+
+  border-radius: 18px;
+
+  box-shadow:
+    0 10px 30px rgba(0, 0, 0, 0.08);
+}
+
+
+.citas-header h1 {
+  margin: 0;
+
+  color: #292742;
+
+  font-size: 28px;
+}
+
+
+.citas-header p {
+  margin-top: 6px;
+  margin-bottom: 0;
+
+  color: #77758a;
+}
+
+
+/* =========================================================
+   BOTONES DE CABECERA
+   ========================================================= */
+
+.acciones-header {
+  display: flex;
+
+  gap: 12px;
+}
+
+
+.btn-nueva {
+  padding: 11px 18px;
+
+  border: none;
+  border-radius: 9px;
+
+  color: white;
+
+  background:
+    linear-gradient(
+      135deg,
+      #6254e8,
+      #7c5ce7
+    );
+
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition: 0.2s ease;
+}
+
+
+.btn-nueva:hover {
+  transform: translateY(-1px);
+
+  box-shadow:
+    0 7px 18px rgba(98, 84, 232, 0.25);
+}
+
+
+.btn-volver {
+  padding: 11px 18px;
+
+  border: none;
+  border-radius: 9px;
+
+  color: #555269;
+
+  background-color: #eeeeF7;
+
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition: 0.2s ease;
+}
+
+
+.btn-volver:hover {
+  background-color: #e2e2ef;
+}
+
+
+/* =========================================================
+   FORMULARIO
+   ========================================================= */
+
+.formulario-card {
+  max-width: 800px;
+
+  margin: 0 auto 30px;
+
+  padding: 30px;
+
+  background-color: white;
+
+  border-radius: 18px;
+
+  box-shadow:
+    0 10px 30px rgba(0, 0, 0, 0.08);
+}
+
+
+.formulario-card h2 {
+  margin-top: 0;
+  margin-bottom: 25px;
+
+  color: #302d4f;
+
+  font-size: 23px;
+}
+
+
+.form-group {
+  margin-bottom: 18px;
+}
+
+
+.form-group label {
+  display: block;
+
+  margin-bottom: 7px;
+
+  color: #39364d;
+
+  font-size: 14px;
+  font-weight: 600;
+}
+
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  width: 100%;
+
+  padding: 12px 14px;
+
+  border: 1px solid #d8d8e5;
+  border-radius: 10px;
+
+  outline: none;
+
+  background-color: #fafafe;
+
+  font-size: 14px;
+
+  box-sizing: border-box;
+
+  transition: 0.2s ease;
+}
+
+
+.form-group textarea {
+  resize: vertical;
+
+  min-height: 100px;
+}
+
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  border-color: #6254e8;
+
+  background-color: white;
+
+  box-shadow:
+    0 0 0 3px rgba(98, 84, 232, 0.10);
+}
+
+
+/* =========================================================
+   VALIDACIONES
+   ========================================================= */
+
+.error-validacion {
+  display: block;
+
+  margin-top: 6px;
+
+  color: #dc3545;
+
+  font-size: 12px;
+}
+
+
+/* =========================================================
+   BOTONES DEL FORMULARIO
+   ========================================================= */
+
+.form-acciones {
+  display: flex;
+
+  gap: 12px;
+
+  margin-top: 25px;
+}
+
+
+.btn-guardar {
+  padding: 12px 20px;
+
+  border: none;
+  border-radius: 9px;
+
+  color: white;
+
+  background:
+    linear-gradient(
+      135deg,
+      #6254e8,
+      #7c5ce7
+    );
+
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition: 0.2s ease;
+}
+
+
+.btn-guardar:hover {
+  transform: translateY(-1px);
+
+  box-shadow:
+    0 7px 18px rgba(98, 84, 232, 0.25);
+}
+
+
+.btn-cancelar-form {
+  padding: 12px 20px;
+
+  border: none;
+  border-radius: 9px;
+
+  color: #4e4b60;
+
+  background-color: #eeeeF7;
+
+  font-weight: 600;
+
+  cursor: pointer;
+}
+
+
+.btn-cancelar-form:hover {
+  background-color: #dfdfeb;
+}
+
+
+/* =========================================================
+   MENSAJES
+   ========================================================= */
+
+.mensaje-info,
+.mensaje-error,
+.mensaje-exito,
+.sin-citas {
+  padding: 20px;
+
+  margin-bottom: 25px;
+
+  text-align: center;
+
+  border-radius: 14px;
+}
+
+
+.mensaje-info {
+  color: #6254e8;
+
+  background-color: white;
+
+  box-shadow:
+    0 8px 25px rgba(0, 0, 0, 0.07);
+}
+
+
+.mensaje-error {
+  color: #b42318;
+
+  background-color: #fff1f0;
+
+  border: 1px solid #ffd3cf;
+}
+
+
+.mensaje-exito {
+  color: #176b3a;
+
+  background-color: #ecfdf3;
+
+  border: 1px solid #b7ebc9;
+}
+
+
+/* =========================================================
+   SIN CITAS
+   ========================================================= */
+
+.sin-citas {
+  background-color: white;
+
+  box-shadow:
+    0 10px 30px rgba(0, 0, 0, 0.07);
+}
+
+
+.sin-icono {
+  font-size: 55px;
+
+  margin-bottom: 10px;
+}
+
+
+.sin-citas h2 {
+  color: #302d4f;
+}
+
+
+.sin-citas p {
+  color: #77758a;
+}
+
+
+/* =========================================================
+   LISTADO DE CITAS
+   ========================================================= */
+
+.citas-grid {
+  display: grid;
+
+  grid-template-columns:
+    repeat(
+      auto-fit,
+      minmax(280px, 1fr)
+    );
+
+  gap: 24px;
+}
+
+
+/* =========================================================
+   TARJETAS DE CITA
+   ========================================================= */
+
+.cita-card {
+  position: relative;
+
+  padding: 25px;
+
+  background-color: white;
+
+  border-radius: 18px;
+
+  box-shadow:
+    0 10px 30px rgba(0, 0, 0, 0.08);
+
+  transition: 0.2s ease;
+}
+
+
+.cita-card:hover {
+  transform: translateY(-4px);
+
+  box-shadow:
+    0 14px 35px rgba(0, 0, 0, 0.12);
+}
+
+
+.cita-card h2 {
+  margin-top: 15px;
+
+  color: #302d4f;
+}
+
+
+/* =========================================================
+   ESTADO DE LA CITA
+   ========================================================= */
+
+.estado-cita {
+  display: inline-block;
+
+  padding: 6px 11px;
+
+  border-radius: 20px;
+
+  color: #6b4f00;
+
+  background-color: #fff3cd;
+
+  font-size: 12px;
+  font-weight: 700;
+}
+
+
+.estado-cita.cancelada {
+  color: #a71d2a;
+
+  background-color: #fde2e4;
+}
+
+
+/* =========================================================
+   INFORMACIÓN DE LA CITA
+   ========================================================= */
+
+.cita-info {
+  margin-top: 15px;
+
+  margin-bottom: 20px;
+}
+
+
+.cita-info p {
+  margin: 9px 0;
+
+  color: #666477;
+}
+
+
+.cita-info strong {
+  color: #38364c;
+}
+
+
+/* =========================================================
+   ACCIONES DE LA CITA
+   ========================================================= */
+
+.acciones-cita {
+  display: flex;
+
+  gap: 10px;
+}
+
+
+.btn-editar {
+  flex: 1;
+
+  padding: 10px 14px;
+
+  border: 1px solid #6254e8;
+  border-radius: 9px;
+
+  color: #6254e8;
+
+  background-color: white;
+
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition: 0.2s ease;
+}
+
+
+.btn-editar:hover {
+  color: white;
+
+  background-color: #6254e8;
+}
+
+
+.btn-cancelar-cita {
+  flex: 1;
+
+  padding: 10px 14px;
+
+  border: 1px solid #dc3545;
+  border-radius: 9px;
+
+  color: #dc3545;
+
+  background-color: white;
+
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition: 0.2s ease;
+}
+
+
+.btn-cancelar-cita:hover {
+  color: white;
+
+  background-color: #dc3545;
+}
+
+
+/* =========================================================
+   RESPONSIVO
+   ========================================================= */
+
+@media (max-width: 700px) {
+
+  .citas-container {
+    padding: 20px;
+  }
+
+
+  .citas-header {
+    flex-direction: column;
+
+    align-items: flex-start;
+  }
+
+
+  .acciones-header {
+    width: 100%;
+
+    flex-direction: column;
+  }
+
+
+  .btn-nueva,
+  .btn-volver {
+    width: 100%;
+  }
+
+
+  .formulario-card {
+    padding: 22px;
+  }
+
+
+  .form-acciones {
+    flex-direction: column;
+  }
+
+
+  .btn-guardar,
+  .btn-cancelar-form {
+    width: 100%;
+  }
+
+
+  .acciones-cita {
+    flex-direction: column;
+  }
+
+}

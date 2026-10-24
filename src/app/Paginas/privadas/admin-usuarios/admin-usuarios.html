@@ -1,0 +1,318 @@
+<!-- =======================================================
+     ADMINISTRACIÓN DE USUARIOS
+     ======================================================= -->
+
+<div class="usuarios-container">
+
+  <!-- =====================================================
+       CABECERA
+       ===================================================== -->
+
+  <header class="usuarios-header">
+
+    <div>
+      <h1>👥 Administración de Usuarios</h1>
+
+      <p>
+        Consulta, aprueba, rechaza, bloquea,
+        activa y elimina cuentas.
+      </p>
+    </div>
+
+    <button
+      type="button"
+      class="btn-volver"
+      (click)="volverDashboard()"
+    >
+      ← Volver
+    </button>
+
+  </header>
+
+
+  <!-- =====================================================
+       FILTROS
+       ===================================================== -->
+
+  <div class="filtros">
+
+    <button
+      type="button"
+      class="btn-filtro"
+      [class.activo]="vistaActual === 'todos'"
+      (click)="cargarUsuarios()"
+    >
+      Todos los usuarios
+    </button>
+
+
+    <button
+      type="button"
+      class="btn-filtro"
+      [class.activo]="vistaActual === 'pendientes'"
+      (click)="cargarPendientes()"
+    >
+      Usuarios pendientes
+    </button>
+
+  </div>
+
+
+  <!-- =====================================================
+       MENSAJE DE ÉXITO
+       ===================================================== -->
+
+  <div
+    class="mensaje-exito"
+    *ngIf="mensajeExito"
+  >
+    {{ mensajeExito }}
+  </div>
+
+
+  <!-- =====================================================
+       MENSAJE DE ERROR
+       ===================================================== -->
+
+  <div
+    class="mensaje-error"
+    *ngIf="mensajeError"
+  >
+    {{ mensajeError }}
+  </div>
+
+
+  <!-- =====================================================
+       CARGANDO
+       ===================================================== -->
+
+  <div
+    class="mensaje-info"
+    *ngIf="cargando"
+  >
+    Cargando usuarios...
+  </div>
+
+
+  <!-- =====================================================
+       SIN USUARIOS
+       ===================================================== -->
+
+  <div
+    class="sin-usuarios"
+    *ngIf="
+      !cargando &&
+      !mensajeError &&
+      usuarios.length === 0
+    "
+  >
+
+    <div class="sin-icono">
+      👥
+    </div>
+
+    <h2>
+      No hay usuarios para mostrar
+    </h2>
+
+    <p *ngIf="vistaActual === 'pendientes'">
+      Actualmente no existen usuarios pendientes de aprobación.
+    </p>
+
+    <p *ngIf="vistaActual === 'todos'">
+      No existen usuarios registrados en el sistema.
+    </p>
+
+  </div>
+
+
+  <!-- =====================================================
+       LISTADO DE USUARIOS
+       ===================================================== -->
+
+  <section
+    class="usuarios-grid"
+    *ngIf="
+      !cargando &&
+      usuarios.length > 0
+    "
+  >
+
+    <article
+      class="usuario-card"
+      *ngFor="let usuario of usuarios"
+    >
+
+
+      <!-- ===============================================
+           CABECERA DE LA TARJETA
+           =============================================== -->
+
+      <div class="usuario-superior">
+
+        <div class="usuario-icono">
+          👤
+        </div>
+
+
+        <div>
+
+          <h2>
+            {{ usuario.nombre }}
+          </h2>
+
+          <span
+            class="rol"
+            [class.admin]="usuario.rol === 'ADMIN'"
+          >
+            {{ usuario.rol }}
+          </span>
+
+        </div>
+
+      </div>
+
+
+      <!-- ===============================================
+           INFORMACIÓN
+           =============================================== -->
+
+      <div class="usuario-info">
+
+        <p>
+          <strong>ID:</strong>
+          {{ usuario.id }}
+        </p>
+
+
+        <p>
+          <strong>Correo:</strong>
+          {{ usuario.correo }}
+        </p>
+
+
+        <p>
+          <strong>Estado:</strong>
+
+          <span
+            class="estado"
+            [class.pendiente]="usuario.estado === 'PENDIENTE'"
+            [class.aprobada]="usuario.estado === 'APROBADA'"
+            [class.rechazada]="usuario.estado === 'RECHAZADA'"
+            [class.bloqueada]="usuario.estado === 'BLOQUEADA'"
+          >
+            {{ usuario.estado }}
+          </span>
+
+        </p>
+
+
+        <p>
+          <strong>Cuenta activa:</strong>
+
+          <span
+            [class.activo-cuenta]="usuario.activo"
+            [class.inactivo-cuenta]="!usuario.activo"
+          >
+            {{ usuario.activo ? 'Sí' : 'No' }}
+          </span>
+        </p>
+
+
+        <p>
+          <strong>Correo verificado:</strong>
+
+          {{ usuario.verificado ? 'Sí' : 'No' }}
+        </p>
+
+      </div>
+
+
+      <!-- ===============================================
+           CUENTA ADMIN
+           =============================================== -->
+
+      <div
+        class="aviso-admin"
+        *ngIf="esAdmin(usuario)"
+      >
+        Cuenta administrativa
+      </div>
+
+
+      <!-- ===============================================
+           ACCIONES PARA USER
+           =============================================== -->
+
+      <div
+        class="acciones"
+        *ngIf="!esAdmin(usuario)"
+      >
+
+
+        <!-- APROBAR -->
+        <button
+          type="button"
+          class="btn-aprobar"
+          *ngIf="usuario.estado === 'PENDIENTE'"
+          (click)="aprobarUsuario(usuario)"
+        >
+          ✓ Aprobar
+        </button>
+
+
+        <!-- RECHAZAR -->
+        <button
+          type="button"
+          class="btn-rechazar"
+          *ngIf="usuario.estado === 'PENDIENTE'"
+          (click)="rechazarUsuario(usuario)"
+        >
+          ✕ Rechazar
+        </button>
+
+
+        <!-- BLOQUEAR -->
+        <button
+          type="button"
+          class="btn-bloquear"
+          *ngIf="
+            usuario.estado === 'APROBADA' &&
+            usuario.activo
+          "
+          (click)="bloquearUsuario(usuario)"
+        >
+          🔒 Bloquear
+        </button>
+
+
+        <!-- ACTIVAR -->
+        <button
+          type="button"
+          class="btn-activar"
+          *ngIf="
+            usuario.estado === 'BLOQUEADA' ||
+            !usuario.activo
+          "
+          (click)="activarUsuario(usuario)"
+        >
+          🔓 Activar
+        </button>
+
+
+        <!-- ELIMINAR -->
+        <button
+          type="button"
+          class="btn-eliminar"
+          (click)="eliminarUsuario(usuario)"
+        >
+          🗑 Eliminar
+        </button>
+
+      </div>
+
+    </article>
+
+  </section>
+
+</div>

@@ -1,0 +1,168 @@
+<!-- =======================================================
+     PÁGINA: VETERINARIOS
+     ======================================================= -->
+
+<div class="veterinarios-container">
+
+  <!-- =====================================================
+       CABECERA
+       ===================================================== -->
+
+  <header class="veterinarios-header">
+
+    <div>
+
+      <h1>👨‍⚕️ Veterinarios</h1>
+
+      <p>
+        Consulta los veterinarios disponibles
+        en la clínica.
+      </p>
+
+    </div>
+
+
+    <button
+      type="button"
+      class="btn-volver"
+      (click)="volverDashboard()"
+    >
+      ← Volver
+    </button>
+
+  </header>
+
+
+  <!-- =====================================================
+       CARGANDO
+       ===================================================== -->
+
+  <div
+    class="mensaje-info"
+    *ngIf="cargando"
+  >
+    Cargando veterinarios...
+  </div>
+
+
+  <!-- =====================================================
+       ERROR
+       ===================================================== -->
+
+  <div
+    class="mensaje-error"
+    *ngIf="mensajeError"
+  >
+    {{ mensajeError }}
+  </div>
+
+
+  <!-- =====================================================
+       SIN VETERINARIOS
+       ===================================================== -->
+
+  <div
+    class="sin-veterinarios"
+    *ngIf="
+      !cargando &&
+      !mensajeError &&
+      veterinarios.length === 0
+    "
+  >
+
+    <div class="sin-icono">
+      👨‍⚕️
+    </div>
+
+    <h2>
+      No hay veterinarios disponibles
+    </h2>
+
+    <p>
+      El administrador todavía no ha registrado
+      veterinarios en el sistema.
+    </p>
+
+  </div>
+
+
+  <!-- =====================================================
+       LISTADO DE VETERINARIOS
+       ===================================================== -->
+
+  <section
+    class="veterinarios-grid"
+    *ngIf="
+      !cargando &&
+      veterinarios.length > 0
+    "
+  >
+
+    <article
+      class="veterinario-card"
+      *ngFor="let veterinario of veterinarios"
+    >
+
+      <!-- ICONO -->
+      <div class="veterinario-icono">
+        👨‍⚕️
+      </div>
+
+
+      <!-- NOMBRE COMPLETO -->
+      <h2>
+        {{ veterinario.nombre }}
+        {{ veterinario.apellido }}
+      </h2>
+
+
+      <!-- INFORMACIÓN -->
+      <div class="veterinario-info">
+
+
+        <!-- CÉDULA -->
+        <p *ngIf="veterinario.cedula">
+
+          <strong>Cédula:</strong>
+
+          {{ veterinario.cedula }}
+
+        </p>
+
+
+        <!-- ESPECIALIDAD -->
+        <p *ngIf="veterinario.especialidad">
+
+          <strong>Especialidad:</strong>
+
+          {{ veterinario.especialidad }}
+
+        </p>
+
+
+        <!-- TELÉFONO -->
+        <p *ngIf="veterinario.telefono">
+
+          <strong>Teléfono:</strong>
+
+          {{ veterinario.telefono }}
+
+        </p>
+
+
+        <!-- CORREO -->
+        <p *ngIf="veterinario.email">
+
+          <strong>Correo:</strong>
+
+          {{ veterinario.email }}
+
+        </p>
+
+      </div>
+
+    </article>
+
+  </section>
+
+</div>

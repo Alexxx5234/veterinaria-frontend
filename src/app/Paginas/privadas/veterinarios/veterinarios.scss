@@ -1,0 +1,285 @@
+/* =========================================================
+   CONTENEDOR PRINCIPAL
+   ========================================================= */
+
+.veterinarios-container {
+  min-height: 100vh;
+  padding: 40px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #f5f7ff,
+      #eef1ff
+    );
+}
+
+
+/* =========================================================
+   CABECERA
+   ========================================================= */
+
+.veterinarios-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  gap: 20px;
+
+  padding: 25px 30px;
+  margin-bottom: 30px;
+
+  background-color: white;
+
+  border-radius: 18px;
+
+  box-shadow:
+    0 10px 30px rgba(0, 0, 0, 0.08);
+}
+
+
+.veterinarios-header h1 {
+  margin: 0;
+
+  color: #292742;
+
+  font-size: 28px;
+}
+
+
+.veterinarios-header p {
+  margin-top: 6px;
+  margin-bottom: 0;
+
+  color: #77758a;
+}
+
+
+/* =========================================================
+   BOTÓN VOLVER
+   ========================================================= */
+
+.btn-volver {
+  padding: 11px 18px;
+
+  border: none;
+  border-radius: 9px;
+
+  color: #555269;
+
+  background-color: #eeeef7;
+
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition: 0.2s ease;
+}
+
+
+.btn-volver:hover {
+  background-color: #e2e2ef;
+
+  transform: translateY(-1px);
+}
+
+
+/* =========================================================
+   MENSAJES
+   ========================================================= */
+
+.mensaje-info,
+.mensaje-error,
+.sin-veterinarios {
+  padding: 20px;
+
+  margin-bottom: 25px;
+
+  text-align: center;
+
+  border-radius: 14px;
+}
+
+
+/* Mensaje mientras se cargan los datos */
+
+.mensaje-info {
+  color: #6254e8;
+
+  background-color: white;
+
+  box-shadow:
+    0 8px 25px rgba(0, 0, 0, 0.07);
+}
+
+
+/* Mensaje de error */
+
+.mensaje-error {
+  color: #b42318;
+
+  background-color: #fff1f0;
+
+  border: 1px solid #ffd3cf;
+}
+
+
+/* =========================================================
+   SIN VETERINARIOS
+   ========================================================= */
+
+.sin-veterinarios {
+  background-color: white;
+
+  box-shadow:
+    0 10px 30px rgba(0, 0, 0, 0.07);
+}
+
+
+.sin-icono {
+  font-size: 55px;
+
+  margin-bottom: 10px;
+}
+
+
+.sin-veterinarios h2 {
+  color: #302d4f;
+}
+
+
+.sin-veterinarios p {
+  color: #77758a;
+}
+
+
+/* =========================================================
+   LISTADO DE VETERINARIOS
+   ========================================================= */
+
+.veterinarios-grid {
+  display: grid;
+
+  grid-template-columns:
+    repeat(
+      auto-fit,
+      minmax(270px, 1fr)
+    );
+
+  gap: 24px;
+}
+
+
+/* =========================================================
+   TARJETA DEL VETERINARIO
+   ========================================================= */
+
+.veterinario-card {
+  padding: 28px;
+
+  background-color: white;
+
+  border-radius: 18px;
+
+  box-shadow:
+    0 10px 30px rgba(0, 0, 0, 0.08);
+
+  transition: 0.2s ease;
+}
+
+
+.veterinario-card:hover {
+  transform: translateY(-5px);
+
+  box-shadow:
+    0 15px 35px rgba(0, 0, 0, 0.12);
+}
+
+
+/* =========================================================
+   ICONO DEL VETERINARIO
+   ========================================================= */
+
+.veterinario-icono {
+  width: 60px;
+  height: 60px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  margin-bottom: 18px;
+
+  border-radius: 15px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #ede9fe,
+      #ddd6fe
+    );
+
+  font-size: 30px;
+}
+
+
+/* =========================================================
+   NOMBRE
+   ========================================================= */
+
+.veterinario-card h2 {
+  margin-top: 0;
+  margin-bottom: 18px;
+
+  color: #302d4f;
+
+  font-size: 21px;
+}
+
+
+/* =========================================================
+   INFORMACIÓN
+   ========================================================= */
+
+.veterinario-info p {
+  margin: 10px 0;
+
+  color: #666477;
+
+  line-height: 1.5;
+}
+
+
+.veterinario-info strong {
+  color: #38364c;
+}
+
+
+/* =========================================================
+   RESPONSIVO
+   ========================================================= */
+
+@media (max-width: 700px) {
+
+  .veterinarios-container {
+    padding: 20px;
+  }
+
+
+  .veterinarios-header {
+    flex-direction: column;
+
+    align-items: flex-start;
+  }
+
+
+  .btn-volver {
+    width: 100%;
+  }
+
+
+  .veterinarios-grid {
+    grid-template-columns: 1fr;
+  }
+
+}

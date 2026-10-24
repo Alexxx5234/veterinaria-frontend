@@ -1,0 +1,331 @@
+<!-- =======================================================
+     ADMINISTRACIÓN DE SERVICIOS
+     ======================================================= -->
+
+<div class="servicios-container">
+
+  <!-- =====================================================
+       CABECERA
+       ===================================================== -->
+
+  <header class="servicios-header">
+
+    <div>
+
+      <h1>🩺 Administración de Servicios</h1>
+
+      <p>
+        Crea, edita y elimina los servicios
+        disponibles en la veterinaria.
+      </p>
+
+    </div>
+
+
+    <div class="acciones-header">
+
+      <button
+        type="button"
+        class="btn-nuevo"
+        (click)="nuevoServicio()"
+      >
+        + Nuevo servicio
+      </button>
+
+
+      <button
+        type="button"
+        class="btn-volver"
+        (click)="volverDashboard()"
+      >
+        ← Volver
+      </button>
+
+    </div>
+
+  </header>
+
+
+
+  <!-- =====================================================
+       MENSAJE DE ÉXITO
+       ===================================================== -->
+
+  <div
+    class="mensaje-exito"
+    *ngIf="mensajeExito"
+  >
+    {{ mensajeExito }}
+  </div>
+
+
+
+  <!-- =====================================================
+       MENSAJE DE ERROR
+       ===================================================== -->
+
+  <div
+    class="mensaje-error"
+    *ngIf="mensajeError"
+  >
+    {{ mensajeError }}
+  </div>
+
+
+
+  <!-- =====================================================
+       FORMULARIO
+       ===================================================== -->
+
+  <section
+    class="formulario-card"
+    *ngIf="mostrarFormulario"
+  >
+
+
+    <h2 *ngIf="servicioEditandoId === null">
+      Crear nuevo servicio
+    </h2>
+
+
+    <h2 *ngIf="servicioEditandoId !== null">
+      Editar servicio
+    </h2>
+
+
+    <form
+      [formGroup]="servicioForm"
+      (ngSubmit)="guardarServicio()"
+    >
+
+
+      <!-- NOMBRE -->
+      <div class="form-group">
+
+        <label for="nombre">
+          Nombre
+        </label>
+
+        <input
+          id="nombre"
+          type="text"
+          formControlName="nombre"
+          placeholder="Ejemplo: Vacunación"
+        >
+
+        <small
+          class="error-validacion"
+          *ngIf="
+            servicioForm.get('nombre')?.touched &&
+            servicioForm.get('nombre')?.hasError('required')
+          "
+        >
+          El nombre es obligatorio.
+        </small>
+
+      </div>
+
+
+      <!-- DESCRIPCIÓN -->
+      <div class="form-group">
+
+        <label for="descripcion">
+          Descripción
+        </label>
+
+        <textarea
+          id="descripcion"
+          rows="4"
+          formControlName="descripcion"
+          placeholder="Describe el servicio"
+        ></textarea>
+
+        <small
+          class="error-validacion"
+          *ngIf="
+            servicioForm.get('descripcion')?.touched &&
+            servicioForm.get('descripcion')?.hasError('required')
+          "
+        >
+          La descripción es obligatoria.
+        </small>
+
+      </div>
+
+
+      <!-- PRECIO -->
+      <div class="form-group">
+
+        <label for="precio">
+          Precio
+        </label>
+
+        <input
+          id="precio"
+          type="number"
+          min="0.01"
+          step="0.01"
+          formControlName="precio"
+          placeholder="Ejemplo: 20.00"
+        >
+
+        <small
+          class="error-validacion"
+          *ngIf="
+            servicioForm.get('precio')?.touched &&
+            servicioForm.get('precio')?.hasError('required')
+          "
+        >
+          El precio es obligatorio.
+        </small>
+
+        <small
+          class="error-validacion"
+          *ngIf="
+            servicioForm.get('precio')?.touched &&
+            servicioForm.get('precio')?.hasError('min')
+          "
+        >
+          El precio debe ser mayor que 0.
+        </small>
+
+      </div>
+
+
+      <!-- BOTONES -->
+      <div class="form-acciones">
+
+        <button
+          type="submit"
+          class="btn-guardar"
+        >
+          {{
+            servicioEditandoId === null
+              ? 'Crear servicio'
+              : 'Guardar cambios'
+          }}
+        </button>
+
+
+        <button
+          type="button"
+          class="btn-cancelar"
+          (click)="cerrarFormulario()"
+        >
+          Cancelar
+        </button>
+
+      </div>
+
+    </form>
+
+  </section>
+
+
+
+  <!-- =====================================================
+       CARGANDO
+       ===================================================== -->
+
+  <div
+    class="mensaje-info"
+    *ngIf="cargando"
+  >
+    Cargando servicios...
+  </div>
+
+
+
+  <!-- =====================================================
+       SIN SERVICIOS
+       ===================================================== -->
+
+  <div
+    class="sin-servicios"
+    *ngIf="
+      !cargando &&
+      !mensajeError &&
+      servicios.length === 0
+    "
+  >
+
+    <div class="sin-icono">
+      🩺
+    </div>
+
+    <h2>
+      No hay servicios registrados
+    </h2>
+
+    <p>
+      Presiona "Nuevo servicio" para crear
+      el primer servicio.
+    </p>
+
+  </div>
+
+
+
+  <!-- =====================================================
+       LISTADO DE SERVICIOS
+       ===================================================== -->
+
+  <section
+    class="servicios-grid"
+    *ngIf="
+      !cargando &&
+      servicios.length > 0
+    "
+  >
+
+    <article
+      class="servicio-card"
+      *ngFor="let servicio of servicios"
+    >
+
+      <div class="servicio-icono">
+        🩺
+      </div>
+
+
+      <h2>
+        {{ servicio.nombre }}
+      </h2>
+
+
+      <p class="descripcion">
+        {{ servicio.descripcion }}
+      </p>
+
+
+      <div class="precio">
+        ${{ servicio.precio }}
+      </div>
+
+
+      <div class="acciones-card">
+
+        <button
+          type="button"
+          class="btn-editar"
+          (click)="editarServicio(servicio)"
+        >
+          ✏️ Editar
+        </button>
+
+
+        <button
+          type="button"
+          class="btn-eliminar"
+          (click)="eliminarServicio(servicio)"
+        >
+          🗑 Eliminar
+        </button>
+
+      </div>
+
+    </article>
+
+  </section>
+
+</div>

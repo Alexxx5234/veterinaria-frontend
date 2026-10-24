@@ -1,0 +1,173 @@
+<!-- =======================================================
+     PÁGINA: VERIFICAR CÓDIGO
+     ======================================================= -->
+
+<div class="verificar-container">
+
+  <div class="verificar-card">
+
+    <!-- =====================================================
+         ENCABEZADO
+         ===================================================== -->
+
+    <div class="verificar-header">
+
+      <div class="logo">
+        📧
+      </div>
+
+      <h1>
+        Verificar cuenta
+      </h1>
+
+      <p>
+        Ingresa el código de 4 dígitos
+        que enviamos a tu correo.
+      </p>
+
+    </div>
+
+
+    <!-- =====================================================
+         MENSAJE DE ÉXITO
+         ===================================================== -->
+
+    <div
+      class="mensaje-exito"
+      *ngIf="mensajeExito"
+    >
+      {{ mensajeExito }}
+    </div>
+
+
+    <!-- =====================================================
+         MENSAJE DE ERROR
+         ===================================================== -->
+
+    <div
+      class="mensaje-error"
+      *ngIf="mensajeError"
+    >
+      {{ mensajeError }}
+    </div>
+
+
+    <!-- =====================================================
+         FORMULARIO
+         ===================================================== -->
+
+    <form
+      [formGroup]="verificarForm"
+      (ngSubmit)="verificarCodigo()"
+    >
+
+      <div class="form-group">
+
+        <label for="codigo">
+          Código de verificación
+        </label>
+
+        <input
+          id="codigo"
+          type="text"
+          maxlength="4"
+          inputmode="numeric"
+          formControlName="codigo"
+          placeholder="0000"
+        >
+
+
+        <small
+          class="error-validacion"
+          *ngIf="
+            verificarForm.get('codigo')?.touched &&
+            verificarForm.get('codigo')?.hasError('required')
+          "
+        >
+          El código es obligatorio.
+        </small>
+
+
+        <small
+          class="error-validacion"
+          *ngIf="
+            verificarForm.get('codigo')?.touched &&
+            verificarForm.get('codigo')?.hasError('pattern')
+          "
+        >
+          El código debe tener exactamente 4 números.
+        </small>
+
+      </div>
+
+
+      <!-- ===================================================
+           BOTÓN VERIFICAR
+           =================================================== -->
+
+      <button
+        type="submit"
+        class="btn-verificar"
+        [disabled]="cargando || !correo"
+      >
+
+        <span *ngIf="!cargando">
+          Verificar cuenta
+        </span>
+
+        <span *ngIf="cargando">
+          Verificando...
+        </span>
+
+      </button>
+
+    </form>
+
+
+    <!-- =====================================================
+         INFORMACIÓN
+         ===================================================== -->
+
+    <div class="info-verificacion">
+
+      <p>
+        🔐 El correo ya fue tomado automáticamente
+        desde el registro.
+      </p>
+
+      <p>
+        ✅ Después de verificar tu cuenta,
+        un administrador deberá aprobarla.
+      </p>
+
+    </div>
+
+
+    <!-- =====================================================
+         OPCIONES
+         ===================================================== -->
+
+    <div class="acciones-secundarias">
+
+      <button
+        type="button"
+        class="btn-secundario"
+        (click)="volverRegistro()"
+      >
+        ← Volver al registro
+      </button>
+
+
+      <button
+        type="button"
+        class="btn-secundario"
+        (click)="irLogin()"
+      >
+        Ir al login
+      </button>
+
+    </div>
+
+  </div>
+
+</div>

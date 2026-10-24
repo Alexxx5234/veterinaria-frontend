@@ -1,0 +1,462 @@
+<!-- =======================================================
+     ADMINISTRACIÓN DE MASCOTAS
+     ======================================================= -->
+
+<div class="mascotas-container">
+
+  <!-- =====================================================
+       CABECERA
+       ===================================================== -->
+
+  <header class="mascotas-header">
+
+    <div>
+
+      <h1>🐾 Administración de Mascotas</h1>
+
+      <p>
+        Consulta, edita y elimina las mascotas
+        registradas en el sistema.
+      </p>
+
+    </div>
+
+
+    <button
+      type="button"
+      class="btn-volver"
+      (click)="volverDashboard()"
+    >
+      ← Volver
+    </button>
+
+  </header>
+
+
+  <!-- =====================================================
+       MENSAJE DE ÉXITO
+       ===================================================== -->
+
+  <div
+    class="mensaje-exito"
+    *ngIf="mensajeExito"
+  >
+    {{ mensajeExito }}
+  </div>
+
+
+  <!-- =====================================================
+       MENSAJE DE ERROR
+       ===================================================== -->
+
+  <div
+    class="mensaje-error"
+    *ngIf="mensajeError"
+  >
+    {{ mensajeError }}
+  </div>
+
+
+  <!-- =====================================================
+       FORMULARIO DE EDICIÓN
+       ===================================================== -->
+
+  <section
+    class="formulario-card"
+    *ngIf="mostrarFormulario"
+  >
+
+    <h2>
+      ✏️ Editar mascota
+    </h2>
+
+
+    <!-- DUEÑO ACTUAL -->
+    <div
+      class="dueno-actual"
+      *ngIf="usuarioActual"
+    >
+
+      <strong>Dueño actual:</strong>
+
+      <span *ngIf="usuarioActual.nombre">
+        {{ usuarioActual.nombre }}
+      </span>
+
+      <span *ngIf="usuarioActual.correo">
+        — {{ usuarioActual.correo }}
+      </span>
+
+    </div>
+
+
+    <form
+      [formGroup]="mascotaForm"
+      (ngSubmit)="guardarMascota()"
+    >
+
+
+      <!-- NOMBRE -->
+      <div class="form-group">
+
+        <label for="nombre">
+          Nombre
+        </label>
+
+        <input
+          id="nombre"
+          type="text"
+          formControlName="nombre"
+          placeholder="Ejemplo: Rocky"
+        >
+
+        <small
+          class="error-validacion"
+          *ngIf="
+            mascotaForm.get('nombre')?.touched &&
+            mascotaForm.get('nombre')?.hasError('required')
+          "
+        >
+          El nombre es obligatorio.
+        </small>
+
+      </div>
+
+
+      <!-- ESPECIE -->
+      <div class="form-group">
+
+        <label for="especie">
+          Especie
+        </label>
+
+        <input
+          id="especie"
+          type="text"
+          formControlName="especie"
+          placeholder="Ejemplo: Perro"
+        >
+
+        <small
+          class="error-validacion"
+          *ngIf="
+            mascotaForm.get('especie')?.touched &&
+            mascotaForm.get('especie')?.hasError('required')
+          "
+        >
+          La especie es obligatoria.
+        </small>
+
+      </div>
+
+
+      <!-- RAZA -->
+      <div class="form-group">
+
+        <label for="raza">
+          Raza
+        </label>
+
+        <input
+          id="raza"
+          type="text"
+          formControlName="raza"
+          placeholder="Ejemplo: Labrador"
+        >
+
+        <small
+          class="error-validacion"
+          *ngIf="
+            mascotaForm.get('raza')?.touched &&
+            mascotaForm.get('raza')?.hasError('required')
+          "
+        >
+          La raza es obligatoria.
+        </small>
+
+      </div>
+
+
+      <!-- EDAD -->
+      <div class="form-group">
+
+        <label for="edad">
+          Edad
+        </label>
+
+        <input
+          id="edad"
+          type="number"
+          min="0"
+          formControlName="edad"
+          placeholder="Ejemplo: 3"
+        >
+
+        <small
+          class="error-validacion"
+          *ngIf="
+            mascotaForm.get('edad')?.touched &&
+            mascotaForm.get('edad')?.hasError('required')
+          "
+        >
+          La edad es obligatoria.
+        </small>
+
+
+        <small
+          class="error-validacion"
+          *ngIf="
+            mascotaForm.get('edad')?.touched &&
+            mascotaForm.get('edad')?.hasError('min')
+          "
+        >
+          La edad no puede ser negativa.
+        </small>
+
+      </div>
+
+
+      <!-- SEXO -->
+      <div class="form-group">
+
+        <label for="sexo">
+          Sexo
+        </label>
+
+        <select
+          id="sexo"
+          formControlName="sexo"
+        >
+
+          <option value="">
+            Selecciona una opción
+          </option>
+
+          <option value="Macho">
+            Macho
+          </option>
+
+          <option value="Hembra">
+            Hembra
+          </option>
+
+        </select>
+
+        <small
+          class="error-validacion"
+          *ngIf="
+            mascotaForm.get('sexo')?.touched &&
+            mascotaForm.get('sexo')?.hasError('required')
+          "
+        >
+          El sexo es obligatorio.
+        </small>
+
+      </div>
+
+
+      <!-- BOTONES -->
+      <div class="form-acciones">
+
+        <button
+          type="submit"
+          class="btn-guardar"
+        >
+          Guardar cambios
+        </button>
+
+
+        <button
+          type="button"
+          class="btn-cancelar"
+          (click)="cerrarFormulario()"
+        >
+          Cancelar
+        </button>
+
+      </div>
+
+    </form>
+
+  </section>
+
+
+  <!-- =====================================================
+       CARGANDO
+       ===================================================== -->
+
+  <div
+    class="mensaje-info"
+    *ngIf="cargando"
+  >
+    Cargando mascotas...
+  </div>
+
+
+  <!-- =====================================================
+       SIN MASCOTAS
+       ===================================================== -->
+
+  <div
+    class="sin-mascotas"
+    *ngIf="
+      !cargando &&
+      !mensajeError &&
+      mascotas.length === 0
+    "
+  >
+
+    <div class="sin-icono">
+      🐾
+    </div>
+
+    <h2>
+      No hay mascotas registradas
+    </h2>
+
+    <p>
+      Todavía no existen mascotas registradas
+      en el sistema.
+    </p>
+
+  </div>
+
+
+  <!-- =====================================================
+       LISTADO DE MASCOTAS
+       ===================================================== -->
+
+  <section
+    class="mascotas-grid"
+    *ngIf="
+      !cargando &&
+      mascotas.length > 0
+    "
+  >
+
+    <article
+      class="mascota-card"
+      *ngFor="let mascota of mascotas"
+    >
+
+
+      <!-- ICONO -->
+      <div class="mascota-icono">
+        🐶
+      </div>
+
+
+      <!-- NOMBRE -->
+      <h2>
+        {{ mascota.nombre }}
+      </h2>
+
+
+      <!-- INFORMACIÓN DE LA MASCOTA -->
+      <div class="mascota-info">
+
+        <p>
+          <strong>ID:</strong>
+          {{ mascota.id }}
+        </p>
+
+
+        <p>
+          <strong>Especie:</strong>
+          {{ mascota.especie }}
+        </p>
+
+
+        <p>
+          <strong>Raza:</strong>
+          {{ mascota.raza }}
+        </p>
+
+
+        <p>
+          <strong>Edad:</strong>
+          {{ mascota.edad }}
+        </p>
+
+
+        <p>
+          <strong>Sexo:</strong>
+          {{ mascota.sexo }}
+        </p>
+
+      </div>
+
+
+      <!-- =================================================
+           DUEÑO DE LA MASCOTA
+           ================================================= -->
+
+      <div
+        class="propietario"
+        *ngIf="mascota.usuario"
+      >
+
+        <h3>
+          👤 Propietario
+        </h3>
+
+
+        <p *ngIf="mascota.usuario.nombre">
+
+          <strong>Nombre:</strong>
+
+          {{ mascota.usuario.nombre }}
+
+        </p>
+
+
+        <p *ngIf="mascota.usuario.correo">
+
+          <strong>Correo:</strong>
+
+          {{ mascota.usuario.correo }}
+
+        </p>
+
+
+        <p *ngIf="mascota.usuario.id">
+
+          <strong>ID Usuario:</strong>
+
+          {{ mascota.usuario.id }}
+
+        </p>
+
+      </div>
+
+
+      <!-- =================================================
+           ACCIONES
+           ================================================= -->
+
+      <div class="acciones-card">
+
+        <button
+          type="button"
+          class="btn-editar"
+          (click)="editarMascota(mascota)"
+        >
+          ✏️ Editar
+        </button>
+
+
+        <button
+          type="button"
+          class="btn-eliminar"
+          (click)="eliminarMascota(mascota)"
+        >
+          🗑 Eliminar
+        </button>
+
+      </div>
+
+    </article>
+
+  </section>
+
+</div>

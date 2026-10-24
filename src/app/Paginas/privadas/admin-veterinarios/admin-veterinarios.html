@@ -1,0 +1,419 @@
+<div class="veterinarios-container">
+
+
+  <!-- =====================================================
+       CABECERA
+       ===================================================== -->
+
+  <header class="veterinarios-header">
+
+    <div>
+
+      <h1>👨‍⚕️ Administración de Veterinarios</h1>
+
+      <p>
+        Registra, edita y elimina veterinarios
+        disponibles en el sistema.
+      </p>
+
+    </div>
+
+
+    <div class="acciones-header">
+
+      <button
+        type="button"
+        class="btn-nuevo"
+        (click)="nuevoVeterinario()"
+      >
+        + Nuevo veterinario
+      </button>
+
+
+      <button
+        type="button"
+        class="btn-volver"
+        (click)="volverDashboard()"
+      >
+        ← Volver
+      </button>
+
+    </div>
+
+  </header>
+
+
+  <!-- =====================================================
+       MENSAJES
+       ===================================================== -->
+
+  <div
+    class="mensaje-exito"
+    *ngIf="mensajeExito"
+  >
+    {{ mensajeExito }}
+  </div>
+
+
+  <div
+    class="mensaje-error"
+    *ngIf="mensajeError"
+  >
+    {{ mensajeError }}
+  </div>
+
+
+  <!-- =====================================================
+       FORMULARIO
+       ===================================================== -->
+
+  <section
+    class="formulario-card"
+    *ngIf="mostrarFormulario"
+  >
+
+
+    <h2 *ngIf="veterinarioEditandoId === null">
+      Registrar nuevo veterinario
+    </h2>
+
+
+    <h2 *ngIf="veterinarioEditandoId !== null">
+      Editar veterinario
+    </h2>
+
+
+    <form
+      [formGroup]="veterinarioForm"
+      (ngSubmit)="guardarVeterinario()"
+    >
+
+
+      <!-- CÉDULA -->
+      <div class="form-group">
+
+        <label for="cedula">
+          Cédula
+        </label>
+
+        <input
+          id="cedula"
+          type="text"
+          maxlength="10"
+          formControlName="cedula"
+          placeholder="Ejemplo: 0102030405"
+        >
+
+        <small
+          class="error-validacion"
+          *ngIf="
+            veterinarioForm.get('cedula')?.touched &&
+            veterinarioForm.get('cedula')?.invalid
+          "
+        >
+          La cédula debe tener 10 caracteres.
+        </small>
+
+      </div>
+
+
+      <!-- NOMBRE -->
+      <div class="form-group">
+
+        <label for="nombre">
+          Nombre
+        </label>
+
+        <input
+          id="nombre"
+          type="text"
+          formControlName="nombre"
+          placeholder="Ejemplo: Carlos"
+        >
+
+        <small
+          class="error-validacion"
+          *ngIf="
+            veterinarioForm.get('nombre')?.touched &&
+            veterinarioForm.get('nombre')?.hasError('required')
+          "
+        >
+          El nombre es obligatorio.
+        </small>
+
+      </div>
+
+
+      <!-- APELLIDO -->
+      <div class="form-group">
+
+        <label for="apellido">
+          Apellido
+        </label>
+
+        <input
+          id="apellido"
+          type="text"
+          formControlName="apellido"
+          placeholder="Ejemplo: Pérez"
+        >
+
+        <small
+          class="error-validacion"
+          *ngIf="
+            veterinarioForm.get('apellido')?.touched &&
+            veterinarioForm.get('apellido')?.hasError('required')
+          "
+        >
+          El apellido es obligatorio.
+        </small>
+
+      </div>
+
+
+      <!-- ESPECIALIDAD -->
+      <div class="form-group">
+
+        <label for="especialidad">
+          Especialidad
+        </label>
+
+        <input
+          id="especialidad"
+          type="text"
+          formControlName="especialidad"
+          placeholder="Ejemplo: Medicina general"
+        >
+
+        <small
+          class="error-validacion"
+          *ngIf="
+            veterinarioForm.get('especialidad')?.touched &&
+            veterinarioForm.get('especialidad')?.hasError('required')
+          "
+        >
+          La especialidad es obligatoria.
+        </small>
+
+      </div>
+
+
+      <!-- TELÉFONO -->
+      <div class="form-group">
+
+        <label for="telefono">
+          Teléfono
+        </label>
+
+        <input
+          id="telefono"
+          type="text"
+          formControlName="telefono"
+          placeholder="Ejemplo: 0998765432"
+        >
+
+        <small
+          class="error-validacion"
+          *ngIf="
+            veterinarioForm.get('telefono')?.touched &&
+            veterinarioForm.get('telefono')?.hasError('required')
+          "
+        >
+          El teléfono es obligatorio.
+        </small>
+
+      </div>
+
+
+      <!-- EMAIL -->
+      <div class="form-group">
+
+        <label for="email">
+          Correo electrónico
+        </label>
+
+        <input
+          id="email"
+          type="email"
+          formControlName="email"
+          placeholder="Ejemplo: veterinario@gmail.com"
+        >
+
+        <small
+          class="error-validacion"
+          *ngIf="
+            veterinarioForm.get('email')?.touched &&
+            veterinarioForm.get('email')?.hasError('required')
+          "
+        >
+          El correo es obligatorio.
+        </small>
+
+
+        <small
+          class="error-validacion"
+          *ngIf="
+            veterinarioForm.get('email')?.touched &&
+            veterinarioForm.get('email')?.hasError('email')
+          "
+        >
+          Ingresa un correo válido.
+        </small>
+
+      </div>
+
+
+      <!-- BOTONES -->
+      <div class="form-acciones">
+
+        <button
+          type="submit"
+          class="btn-guardar"
+        >
+          {{
+            veterinarioEditandoId === null
+              ? 'Registrar veterinario'
+              : 'Guardar cambios'
+          }}
+        </button>
+
+
+        <button
+          type="button"
+          class="btn-cancelar"
+          (click)="cerrarFormulario()"
+        >
+          Cancelar
+        </button>
+
+      </div>
+
+    </form>
+
+  </section>
+
+
+  <!-- =====================================================
+       CARGANDO
+       ===================================================== -->
+
+  <div
+    class="mensaje-info"
+    *ngIf="cargando"
+  >
+    Cargando veterinarios...
+  </div>
+
+
+  <!-- =====================================================
+       SIN VETERINARIOS
+       ===================================================== -->
+
+  <div
+    class="sin-veterinarios"
+    *ngIf="
+      !cargando &&
+      !mensajeError &&
+      veterinarios.length === 0
+    "
+  >
+
+    <div class="sin-icono">
+      👨‍⚕️
+    </div>
+
+    <h2>
+      No hay veterinarios registrados
+    </h2>
+
+    <p>
+      Presiona "Nuevo veterinario" para registrar el primero.
+    </p>
+
+  </div>
+
+
+  <!-- =====================================================
+       LISTADO
+       ===================================================== -->
+
+  <section
+    class="veterinarios-grid"
+    *ngIf="
+      !cargando &&
+      veterinarios.length > 0
+    "
+  >
+
+
+    <article
+      class="veterinario-card"
+      *ngFor="let veterinario of veterinarios"
+    >
+
+
+      <div class="veterinario-icono">
+        👨‍⚕️
+      </div>
+
+
+      <h2>
+        {{ veterinario.nombre }}
+        {{ veterinario.apellido }}
+      </h2>
+
+
+      <div class="veterinario-info">
+
+        <p>
+          <strong>Cédula:</strong>
+          {{ veterinario.cedula }}
+        </p>
+
+
+        <p>
+          <strong>Especialidad:</strong>
+          {{ veterinario.especialidad }}
+        </p>
+
+
+        <p>
+          <strong>Teléfono:</strong>
+          {{ veterinario.telefono }}
+        </p>
+
+
+        <p>
+          <strong>Correo:</strong>
+          {{ veterinario.email }}
+        </p>
+
+      </div>
+
+
+      <div class="acciones-card">
+
+        <button
+          type="button"
+          class="btn-editar"
+          (click)="editarVeterinario(veterinario)"
+        >
+          ✏️ Editar
+        </button>
+
+
+        <button
+          type="button"
+          class="btn-eliminar"
+          (click)="eliminarVeterinario(veterinario)"
+        >
+          🗑 Eliminar
+        </button>
+
+      </div>
+
+    </article>
+
+  </section>
+
+</div>
